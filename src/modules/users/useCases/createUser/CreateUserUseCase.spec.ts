@@ -33,7 +33,7 @@ describe("Create User", () => {
                 password: "testes",
             };
     
-            await createUserUseCase.execute(user);
+            await usersRepository.create(user);
             await createUserUseCase.execute(user);
         }).rejects.toBeInstanceOf(CreateUserError);
     });

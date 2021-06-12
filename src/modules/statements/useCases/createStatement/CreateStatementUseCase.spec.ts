@@ -38,6 +38,20 @@ describe("Create Statement Use Case", () => {
         expect(statement).toHaveProperty("id");
     });
 
+    it("should not be able create a new statement if user not found", async () => {
+        try {
+            await createStatementUseCase.execute({
+                user_id: "1234",
+                type: OperationType.DEPOSIT,
+                amount: 100,
+                description: "Testing deposit"
+            });
+
+        } catch (error) {
+            expect(error).toBeInstanceOf(CreateStatementError.UserNotFound);
+        }
+    });
+
     it("should be able create a new withdraw statement", async () => {
         const user = await usersRepository.create({
             email: "teste@teste.com",

@@ -44,7 +44,7 @@ describe("Authenticate User", () => {
     });
 
     it("should not be able authenticate user if email or password incorrect", async () => {
-        expect(async () => {
+        try {
             const user: ICreateUserDTO = {
                 email: "teste@teste.com",
                 name: "Teste",
@@ -52,11 +52,12 @@ describe("Authenticate User", () => {
             };
     
             await createUserUseCase.execute(user);
-    
             await authenticateUserUseCase.execute({
                 email: user.email,
-                password: "teste"
+                password: "1234"
             });
-        }).rejects.toBeInstanceOf(IncorrectEmailOrPasswordError);
+        } catch (error) {
+            expect(error).toBeInstanceOf(IncorrectEmailOrPasswordError);
+        }
     });
 });
