@@ -30,7 +30,6 @@ export class AuthenticateUserUseCase {
     const passwordMatch = await compare(password, user.password);
 
     if (!passwordMatch) {
-      console.log('to aqui');
       throw new IncorrectEmailOrPasswordError();
     }
 
